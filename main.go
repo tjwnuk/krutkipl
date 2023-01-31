@@ -2,15 +2,24 @@ package main
 
 import (
 	"net/http"
+	_ "net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
+func IndexHandler(c *gin.Context) {
+	c.HTML(http.StatusOK, "index.tmpl.html", gin.H{
+		"title": "Strona główna",
+	})
+}
+
 func main() {
 	router := gin.Default()
-	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "witaj świecie")
-	})
+	router.LoadHTMLGlob("templates/**/*.tmpl.html")
+
+	router.Static("/assets", "./assets")
+
+	router.GET("/", IndexHandler)
 
 	router.Run()
 }
