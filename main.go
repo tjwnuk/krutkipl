@@ -1,17 +1,11 @@
 package main
 
 import (
-	"net/http"
 	_ "net/http"
 
 	"github.com/gin-gonic/gin"
+	"krutki.pl/controllers"
 )
-
-func IndexHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.tmpl.html", gin.H{
-		"title": "Strona główna",
-	})
-}
 
 func main() {
 	router := gin.Default()
@@ -19,7 +13,8 @@ func main() {
 
 	router.Static("/assets", "./assets")
 
-	router.GET("/", IndexHandler)
+	router.GET("/", controllers.IndexHandler)
+	router.GET("/login", controllers.LoginHandler)
 
 	router.Run()
 }
