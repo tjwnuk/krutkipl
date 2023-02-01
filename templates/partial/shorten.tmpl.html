@@ -1,0 +1,17 @@
+{{ define "partial/shorten" }}
+
+<div class="card" style="margin: 0 auto; float: none; margin-bottom: 10px; margin-top: 5rem; width: 50rem;">
+    <div class="card-header">
+        <h5 class="card-header">Skruć link</h5>
+    </div>
+
+    <div class="card-body">
+        <form class="form-inline justify-content-center" action="/shorten" method="post">
+            <input class = "w-75 mr-2" type="text" name="originalURL" placeholder="Podaj link"></input>
+            <button type="submit" class="btn btn-primary">Dodaj</button>
+        </form>
+    </div>
+
+</div>
+
+{{ end }}

@@ -14,6 +14,7 @@ func main() {
 	router.GET("/", controllers.IndexHandler)
 	router.GET("/login", controllers.LoginHandler)
 	router.POST("/login", controllers.LoginPostHandler)
+	router.POST("/shorten", controllers.ShortenHandler)
 
 	router.Run()
 }
