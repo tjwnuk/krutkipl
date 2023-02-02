@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"krutki.pl/helpers"
 )
 
 func ShortenHandler(c *gin.Context) {
@@ -18,7 +19,13 @@ func ShortenHandler(c *gin.Context) {
 		})
 	}
 
+	// c.JSON(http.StatusOK, gin.H{
+	// 	"URL": originalURL,
+	// })
+
+	var randomString string = helpers.GenerateToken(8)
+
 	c.JSON(http.StatusOK, gin.H{
-		"URL": originalURL,
+		"str": randomString,
 	})
 }
