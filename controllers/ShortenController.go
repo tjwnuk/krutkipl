@@ -7,6 +7,8 @@ import (
 	"krutki.pl/helpers"
 )
 
+// Handle request for shortening URL
+
 func ShortenHandler(c *gin.Context) {
 	err := c.Request.ParseForm()
 	originalURL := c.Request.PostFormValue("originalURL")
@@ -18,10 +20,6 @@ func ShortenHandler(c *gin.Context) {
 			"URL":        originalURL,
 		})
 	}
-
-	// c.JSON(http.StatusOK, gin.H{
-	// 	"URL": originalURL,
-	// })
 
 	var randomString string = helpers.GenerateToken(8)
 
