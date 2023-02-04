@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/**/*.tmpl.html")
 
@@ -24,4 +25,5 @@ func main() {
 	router.GET("/l/:token", controllers.RedirectHandler)
 
 	router.Run()
+
 }
