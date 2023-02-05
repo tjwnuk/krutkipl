@@ -3,18 +3,28 @@ package models
 import (
 	"errors"
 
+	"os"
+
+	"github.com/joho/godotenv"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-
-	"os"
 )
 
 var db *gorm.DB
 
 // returns database object
 func GetDB() (*gorm.DB, error) {
+
+	err := godotenv.Load()
+
+	if err != nil {
+		panic("Error reading .env file")
+	}
+
+	dbfile := os.Getenv("SQLITE_FILENAME")
+
 	if db == nil {
-		db, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
+		db, err := gorm.Open(sqlite.Open(dbfile), &gorm.Config{})
 
 		if err != nil {
 			// panic("Database error")
