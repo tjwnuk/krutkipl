@@ -20,6 +20,7 @@ func main() {
 
 	db.AutoMigrate(&models.Url{})
 
+	// ct - controller object
 	ct = &controllers.Controller{db}
 
 	router := gin.Default()
