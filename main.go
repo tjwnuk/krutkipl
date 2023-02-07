@@ -39,6 +39,7 @@ func main() {
 
 	// Redirect
 	router.GET("/l/:token", ct.RedirectHandler)
+	// router.GET("/:token", ct.RedirectHandler)
 
 	router.Run()
 

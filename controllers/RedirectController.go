@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
 	"krutki.pl/models"
 )
@@ -12,13 +10,13 @@ func (ct Controller) RedirectHandler(c *gin.Context) {
 
 	model := models.Model{Db: ct.Db}
 
-	ok, url := model.GetRedirect(token)
+	ok, url := model.GetRedirectUrl(token)
 
 	if ok {
+		// if the token is present in the database
 		c.Redirect(302, url)
 	} else {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error": "nie ma takiej strony",
-		})
+		// or if it's not
+		c.HTML(404, "error404", nil)
 	}
 }
