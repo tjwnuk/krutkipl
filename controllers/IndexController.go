@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func IndexHandler(c *gin.Context) {
+func (ct Controller) IndexHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.tmpl.html", gin.H{
 		"title": "Strona główna",
 	})

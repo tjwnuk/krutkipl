@@ -4,12 +4,12 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"krutki.pl/helpers"
+	"krutki.pl/models"
 )
 
 // Handle request for shortening URL
 
-func ShortenHandler(c *gin.Context) {
+func (ct Controller) ShortenHandler(c *gin.Context) {
 	err := c.Request.ParseForm()
 	originalURL := c.Request.PostFormValue("originalURL")
 
@@ -21,9 +21,18 @@ func ShortenHandler(c *gin.Context) {
 		})
 	}
 
-	var randomString string = helpers.GenerateToken(8)
+	model := models.Model{Db: ct.Db}
+
+	shortenedUrl, err := model.CreateNewShortcut(originalURL)
+
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"Error": "error creating new shortcut",
+		})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"str": randomString,
+		"ShortenedUrl": shortenedUrl,
 	})
 }

@@ -11,13 +11,13 @@ type LoginData struct {
 	Password string
 }
 
-func LoginHandler(c *gin.Context) {
+func (ct Controller) LoginHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "login.tmpl.html", gin.H{
 		"title": "Zaloguj się",
 	})
 }
 
-func LoginPostHandler(c *gin.Context) {
+func (ct Controller) LoginPostHandler(c *gin.Context) {
 	err := c.Request.ParseForm()
 	if err != nil {
 		panic(err)

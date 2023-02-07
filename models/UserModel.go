@@ -2,7 +2,7 @@ package models
 
 import "time"
 
-type UserModel struct {
+type User struct {
 	ID        uint `gorm:"primaryKey"`
 	Email     string
 	Password  string
