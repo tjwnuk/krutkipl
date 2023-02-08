@@ -38,7 +38,7 @@ func main() {
 	router.POST("/shorten", ct.ShortenHandler)
 
 	// Redirect
-	router.GET("/l/:token", ct.RedirectHandler)
+	router.GET("/:token", ct.RedirectHandler)
 	// router.GET("/:token", ct.RedirectHandler)
 
 	router.Run()
