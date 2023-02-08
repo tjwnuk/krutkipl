@@ -16,22 +16,49 @@ type Url struct {
 	ShortenedURL string
 }
 
+// Checks if token exists in the database
+// returns bool, true if exists or false if do not exist
+func (m Model) TokenAlreadyExist(token string) bool {
+	db = m.Db
+
+	var tokenAlreadyExist bool
+
+	// .Find() takes pointer, .Find(&variable)
+	// otherwise do not work properly
+	_ = db.Model(&Url{}).Select("count(*) > 0").Where("token = ?", token).Find(&tokenAlreadyExist).Error
+
+	return tokenAlreadyExist
+}
+
 // Creates new shortcut, new shortened URL
-// returns (ok bool, ShortenedUrl string)
+// returns (token string, error)
 func (m Model) CreateNewShortcut(OriginalURL string) (string, error) {
 
 	db := m.Db
 
-	token := helpers.GenerateToken(8)
-	shortenedUrl := "krutki.pl/l/" + token
+	// shortened url will have string like 19KKLP7O
+	// tokenLength determines how many chars it will have
+	var tokenLength int = 8
+	token := helpers.GenerateToken(tokenLength)
 
-	url := Url{OriginalURL: OriginalURL, Token: token, ShortenedURL: shortenedUrl}
+	counter := 0
+	for m.TokenAlreadyExist(token) {
+		token = helpers.GenerateToken(tokenLength)
 
-	if result := db.Create(&url); result.Error != nil {
+		counter++
+
+		if counter > 30 {
+			return "", errors.New("database is full")
+		}
+	}
+
+	url := Url{OriginalURL: OriginalURL, Token: token}
+
+	if r := db.Create(&url); r.Error != nil {
 		return "", errors.New("error creating new entry")
 	}
 
-	return shortenedUrl, nil
+	return token, nil
 }
 
 // Get original url to redirect to
