@@ -10,10 +10,9 @@ import (
 
 type Url struct {
 	gorm.Model
-	ID           int
-	OriginalURL  string
-	Token        string
-	ShortenedURL string
+	ID          int
+	OriginalURL string
+	Token       string
 }
 
 // Checks if token exists in the database
@@ -28,6 +27,14 @@ func (m Model) TokenAlreadyExist(token string) bool {
 	_ = db.Model(&Url{}).Select("count(*) > 0").Where("token = ?", token).Find(&tokenAlreadyExist).Error
 
 	return tokenAlreadyExist
+}
+
+// Checks if URL is already shortened
+// if yes, returns true and token
+// if no, returns false and empty string
+func (m Model) UrlAlreadyExist(url string) (bool, string) {
+
+	return false, ""
 }
 
 // Creates new shortcut, new shortened URL
