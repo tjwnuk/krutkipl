@@ -32,7 +32,11 @@ func (ct Controller) ShortenHandler(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"ShortenedUrl": shortenedUrl,
+	// full link to copy
+	baseUrl := "http://" + c.Request.Host + "/"
+
+	// render result page
+	c.HTML(http.StatusOK, "shorten/result", gin.H{
+		"ShortenedUrl": baseUrl + shortenedUrl,
 	})
 }
