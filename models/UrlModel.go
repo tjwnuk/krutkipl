@@ -30,11 +30,32 @@ func (m Model) TokenAlreadyExist(token string) bool {
 }
 
 // Checks if URL is already shortened
-// if yes, returns true and token
-// if no, returns false and empty string
+// returns (exists bool, token string)
 func (m Model) UrlAlreadyExist(url string) (bool, string) {
 
-	return false, ""
+	var result *Url
+	var urlAlreadyExist bool
+
+	db = m.Db
+
+	_ = db.Model(&Url{}).Select("count(*) > 0").Where("original_url = ?", url).Find(&urlAlreadyExist).Error
+
+	if urlAlreadyExist {
+
+		err := db.Where("original_url = ?", url).First(&result).Error
+
+		if err == nil {
+			// return it only if url is present in the database
+			return true, result.Token
+		} else {
+			// url is not present in db
+			return false, ""
+		}
+	} else {
+		// url is not present in database
+		return false, ""
+	}
+
 }
 
 // Creates new shortcut, new shortened URL
@@ -42,6 +63,14 @@ func (m Model) UrlAlreadyExist(url string) (bool, string) {
 func (m Model) CreateNewShortcut(OriginalURL string) (string, error) {
 
 	db := m.Db
+
+	// check if url is already present
+
+	urlAlreadyExist, existingToken := m.UrlAlreadyExist(OriginalURL)
+
+	if urlAlreadyExist {
+		return existingToken, nil
+	}
 
 	// shortened url will have string like 19KKLP7O
 	// tokenLength determines how many chars it will have
