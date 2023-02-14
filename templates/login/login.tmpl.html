@@ -1,5 +1,5 @@
 {{ template "partial/header" .title}}
-{{ template "partial/navbar-not-logged"}}
+{{ template "partial/navbar"}}
 
 <body>
 
@@ -14,8 +14,8 @@
 
     <form action='/login' method='POST'>
       <div class="form-group">
-        <label for="email">Adres email:</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Podaj adres email" name="email">
+        <label for="username">Nazwa użytkownika</label>
+        <input type="text" class="form-control" id="username" placeholder="Podaj nazwę użytkownika" name="username">
         {{/* <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> */}}
       </div>
       <div class="form-group">

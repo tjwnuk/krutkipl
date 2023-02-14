@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"krutki.pl/controllers"
+	"krutki.pl/middleware"
 	"krutki.pl/models"
 )
 
@@ -18,7 +19,7 @@ func main() {
 		panic("Error connecting database")
 	}
 
-	db.AutoMigrate(&models.Url{})
+	db.AutoMigrate(&models.Url{}, &models.User{})
 
 	// ct - controller object
 	ct = &controllers.Controller{db}
@@ -36,6 +37,12 @@ func main() {
 	router.GET("/login", ct.LoginHandler)
 	router.POST("/login", ct.LoginPostHandler)
 	router.POST("/shorten", ct.ShortenHandler)
+
+	router.GET("/register", ct.RegisterControllerHandler)
+	router.POST("/register", ct.RegisterControllerPOST)
+
+	// Mod panel
+	router.GET("/mod", middleware.RequireAuth, ct.ModPanelListAllLinks)
 
 	// Redirect all other routes
 	// Check if route matches token in DB, if yes, redirect
