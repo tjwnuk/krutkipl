@@ -1,5 +1,5 @@
 # krutkipl
-Link shortener written with Go
+Link shortener written with Go. Project uses Gin Gonic, Gorm and Sqlite.
 
 ## License
 This code is for educational purposes only. Please do not modify or distribute it.
