@@ -1,18 +1,21 @@
 package models
 
 import (
-	"time"
-
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
+
+// Ranks
+// admin  - only admin, access to all sites
+// mod 	  - moderator, access to selected sites
+// reg    - regular user
 
 type User struct {
 	ID           uint   `gorm:"primaryKey"`
 	Username     string `gorm:"unique"`
 	PasswordHash string
-	CreatedAt    time.Time
-	UpdatedAt    time.Time
-	DeletedAt    time.Time
+	Rank         string
+	gorm.Model
 }
 
 // Creates new User
@@ -25,7 +28,7 @@ func (m Model) CreateUser(username string, password string) bool {
 		return false
 	}
 
-	newUser := User{Username: username, PasswordHash: string(passwordHashByte)}
+	newUser := User{Username: username, PasswordHash: string(passwordHashByte), Rank: "reg"}
 	result := db.Create(&newUser)
 
 	if result.Error != nil {

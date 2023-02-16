@@ -45,6 +45,10 @@ func (ct *Controller) RegisterControllerPOST(c *gin.Context) {
 		})
 
 		return
+	} else {
+		c.HTML(http.StatusOK, "login/registerFail", gin.H{
+			"Username": username,
+		})
 	}
 
 }

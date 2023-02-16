@@ -72,10 +72,7 @@ func (ct Controller) LoginPostHandler(c *gin.Context) {
 		return
 	} else {
 		// if username and password does not match
-		c.JSON(http.StatusOK, gin.H{
-			"status": "error",
-			"msg":    "user not found",
-		})
+		c.HTML(http.StatusOK, "errors/userNotFound", nil)
 
 		return
 	}

@@ -34,6 +34,7 @@ func main() {
 
 	// Routes
 	router.GET("/", ct.IndexHandler)
+	router.GET("/about", middleware.RequireAuth, ct.AboutHandler)
 	router.GET("/login", ct.LoginHandler)
 	router.POST("/login", ct.LoginPostHandler)
 	router.POST("/shorten", ct.ShortenHandler)
