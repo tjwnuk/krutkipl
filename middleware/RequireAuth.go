@@ -23,10 +23,11 @@ func RequireAuth(c *gin.Context) {
 
 	if err != nil {
 		c.AbortWithStatus(http.StatusUnauthorized)
-		c.JSON(401, gin.H{
-			"status": "error",
-			"msg":    "permission denied",
-		})
+		// c.JSON(401, gin.H{
+		// 	"status": "error",
+		// 	"msg":    "permission denied",
+		// })
+		c.HTML(401, "errors/permissionDenied", nil)
 		c.Next()
 		return
 	}

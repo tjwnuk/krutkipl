@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"time"
@@ -23,6 +22,8 @@ func (ct Controller) LoginHandler(c *gin.Context) {
 	})
 }
 
+// Handles the login post request
+// after success redirects to the main page (/)
 func (ct Controller) LoginPostHandler(c *gin.Context) {
 
 	_ = godotenv.Load()
@@ -58,13 +59,15 @@ func (ct Controller) LoginPostHandler(c *gin.Context) {
 				"msg":    "internal server error",
 			})
 
-			fmt.Println(err)
-
 			return
 		}
 
 		c.SetSameSite(http.SameSiteLaxMode)
 		c.SetCookie("Authorization", tokenString, 3600, "", "", false, true)
+
+		baseUrl := "http://" + c.Request.Host + "/"
+
+		c.Redirect(301, baseUrl)
 
 		return
 	} else {
