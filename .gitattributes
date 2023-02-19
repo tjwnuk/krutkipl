@@ -1,3 +1,2 @@
-*.go linguist-language=Go
-assets/ linguist-vendored
-vendor/ linguist-vendored
+assets/** linguist-vendored
+vendor/** linguist-vendored
