@@ -13,6 +13,8 @@ var ct *controllers.Controller
 
 func main() {
 
+	gin.SetMode(gin.DebugMode)
+
 	db, err := models.GetDB()
 
 	if err != nil {
@@ -33,12 +35,14 @@ func main() {
 	router.NoRoute(ct.Error404Handler)
 
 	// Routes
+	router.Use(middleware.AlreadyLogged)
+
 	router.GET("/", ct.IndexHandler)
-	router.GET("/about", middleware.RequireAuth, ct.AboutHandler)
+	router.GET("/about", ct.AboutHandler)
 	router.GET("/login", ct.LoginHandler)
 	router.POST("/login", ct.LoginPostHandler)
+	router.GET("/logout", ct.LogoutHandler)
 	router.POST("/shorten", ct.ShortenHandler)
-
 	router.GET("/register", ct.RegisterControllerHandler)
 	router.POST("/register", ct.RegisterControllerPOST)
 

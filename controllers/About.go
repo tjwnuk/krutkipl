@@ -7,5 +7,9 @@ func (ct Controller) AboutHandler(c *gin.Context) {
 
 	if exists {
 		c.JSON(200, currentUser)
+	} else {
+		c.JSON(200, gin.H{
+			"msg": "you are not logged in",
+		})
 	}
 }
