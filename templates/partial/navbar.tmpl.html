@@ -9,15 +9,14 @@
             krutki.pl
         </a>
 
+
+{{/* with login */}}
+
+{{ if .User }}
+
             <ul class='nav justify-content-end'>
                 <li class="nav-item">
                     <a class="nav-link " aria-current="page" href="/">Skruć link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="/login">Zaloguj</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="/register">Zarejestruj</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " aria-current="page" href="/about">O stronie</a>
@@ -25,8 +24,33 @@
                 <li class="nav-item">
                     <a class="nav-link " aria-current="page" href="/logout">Wyloguj</a>
                 </li>
+
+                <li class="nav-link disabled" aria-current="page">
+                    <p>({{.User.Username}})</p>
+                </li>
             </ul>
+
+{{/* without login */}}
+
+{{ else }}
+
+            <ul class='nav justify-content-end'>
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="/">Skruć link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="/about">O stronie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="/login">Zaloguj</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="/register">Zarejestruj</a>
+                </li>
+            </ul>
+
+{{ end }}
+
     </div>
 </div>
-
 {{ end }}

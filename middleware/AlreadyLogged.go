@@ -28,7 +28,7 @@ func AlreadyLogged(c *gin.Context) {
 			if ok {
 				// execute when the user is logged in and cookie is set
 
-				c.Set("user", currentUser)
+				c.Set("User", currentUser)
 			}
 		}
 
