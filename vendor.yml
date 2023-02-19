@@ -1,2 +1,2 @@
-assets/* linguist-vendored
-vendor/* linguist-vendored
+- (^|/)bootstrap([^/.]*)(?=\.).*\.(js|css|less|scss|styl)$
+- (^|/)custom\.bootstrap([^\s]*)(js|css|less|scss|styl)$
