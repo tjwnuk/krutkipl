@@ -11,7 +11,7 @@ import (
 // This middleware updates context with currently logged user
 func AlreadyLogged(c *gin.Context) {
 
-	c.Set("user", models.User{})
+	// c.Set("user", models.User{})
 
 	if cookie, err := c.Request.Cookie("Authorization"); err == nil {
 		value := cookie.Value
