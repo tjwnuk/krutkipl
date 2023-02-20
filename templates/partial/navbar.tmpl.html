@@ -18,6 +18,13 @@
                 <li class="nav-item">
                     <a class="nav-link " aria-current="page" href="/">Skruć link</a>
                 </li>
+            {{ if or (eq .User.Rank "admin") (eq .User.Rank "mod") }}
+            
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="/manage-links">Zarządzaj</a>
+                </li>
+
+            {{ end }}
                 <li class="nav-item">
                     <a class="nav-link " aria-current="page" href="/about">O stronie</a>
                 </li>
