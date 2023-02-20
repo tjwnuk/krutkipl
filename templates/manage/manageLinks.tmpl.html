@@ -3,8 +3,30 @@
 <body class=''>
 {{ template "partial/navbar" .}}
 
-Zarządzaj linkami
+<h1>Zarządzaj linkami</h1>
 
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Link</th>
+        <th scope="col">Token</th>
+        <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+{{ range $index, $link := .Links }}
+    <tr>
+        <th scope="row">{{ $link.ID }}</th>
+        <td>{{ $link.OriginalURL }}</td>
+        <td>{{ $link.Token }}</td>
+        <td>Delete</td>
+    </tr>
+{{ end }}
+
+    </tbody>
+</table>
 </body>
 {{ template "partial/footer" }}
 
