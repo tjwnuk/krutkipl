@@ -134,3 +134,17 @@ func (m Model) GetRedirectUrl(token string) (bool, string) {
 	return true, resultString
 
 }
+
+func (m Model) GetAllLinks() []Url {
+	var urls []Url
+
+	db := m.Db
+
+	result := db.Find(&urls)
+
+	if result.Error != nil {
+		panic("Url model: error querying db")
+	}
+
+	return urls
+}
