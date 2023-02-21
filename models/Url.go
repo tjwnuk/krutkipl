@@ -148,3 +148,14 @@ func (m Model) GetAllLinks() []Url {
 
 	return urls
 }
+
+// Deletes specified URL from database
+// returns ok bool
+func (m Model) DeleteUrl(idToDelete int) bool {
+
+	db := m.Db
+
+	db.Delete(&Url{}, idToDelete)
+
+	return true
+}

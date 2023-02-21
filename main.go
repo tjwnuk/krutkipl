@@ -48,6 +48,7 @@ func main() {
 
 	// Mod panel
 	router.GET("/manage-links", middleware.RequireAuth, ct.ManageLinks)
+	router.GET("/manage-links/delete/:link_id", middleware.RequireAuth, ct.ManageLinksDeleteLink)
 
 	// Redirect all other routes
 	// Check if route matches token in DB, if yes, redirect

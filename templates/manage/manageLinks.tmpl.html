@@ -21,7 +21,12 @@
         <th scope="row">{{ $link.ID }}</th>
         <td>{{ $link.OriginalURL }}</td>
         <td>{{ $link.Token }}</td>
-        <td>Delete</td>
+        <td>
+            {{/* <form action="/manage-links/delete/{{ $link.ID }}">
+                <button type="button" class="btn btn-danger" type="submit" >Usuń</button>
+            </form> */}}
+            <a class="btn btn-danger" href="/manage-links/delete/{{ $link.ID }}">Usuń</a>
+        </td>
     </tr>
 {{ end }}
 
