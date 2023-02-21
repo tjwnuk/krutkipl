@@ -3,7 +3,6 @@ package middleware
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -11,7 +10,7 @@ import (
 	"krutki.pl/models"
 )
 
-func RequireAuth(c *gin.Context) {
+func RequireAdmin(c *gin.Context) {
 
 	db, err := models.GetDB()
 
@@ -51,7 +50,7 @@ func RequireAuth(c *gin.Context) {
 			notAllowed = true
 		}
 
-		if user.Rank == "mod" || user.Rank == "admin" {
+		if user.Rank == "admin" {
 			notAllowed = false
 		}
 
@@ -72,18 +71,4 @@ func RequireAuth(c *gin.Context) {
 	}
 
 	c.Next()
-}
-
-func parseToken(tokenString string) (*jwt.Token, error) {
-
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		// Don't forget to validate the alg is what you expect:
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-		}
-
-		return []byte(os.Getenv("JWT_SECRET")), nil
-	})
-
-	return token, err
 }

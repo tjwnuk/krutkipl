@@ -47,8 +47,13 @@ func main() {
 	router.POST("/register", ct.RegisterControllerPOST)
 
 	// Mod panel
+	// Links (aka Urls)
 	router.GET("/manage-links", middleware.RequireAuth, ct.ManageLinks)
 	router.GET("/manage-links/delete/:link_id", middleware.RequireAuth, ct.ManageLinksDeleteLink)
+
+	// Users
+	router.GET("/manage-users", middleware.RequireAdmin, ct.ManageUsers)
+	router.GET("/manage-users/delete/:user_id", middleware.RequireAdmin, ct.ManageUsersDeleteUser)
 
 	// Redirect all other routes
 	// Check if route matches token in DB, if yes, redirect

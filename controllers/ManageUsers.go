@@ -8,10 +8,11 @@ import (
 	"krutki.pl/models"
 )
 
-func (ct Controller) ManageLinks(c *gin.Context) {
+func (ct Controller) ManageUsers(c *gin.Context) {
 
 	user, exist := c.Get("User")
 
+	// check middleware error
 	if !exist {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"status": "error",
@@ -23,17 +24,17 @@ func (ct Controller) ManageLinks(c *gin.Context) {
 
 	model := models.Model{Db: ct.Db}
 
-	links := model.GetAllLinks()
+	usersList := model.GetAllUsers()
 
-	c.HTML(http.StatusOK, "manage/manageLinks", gin.H{
-		"User":  user,
-		"Links": links,
+	c.HTML(http.StatusOK, "manage/manageUsers", gin.H{
+		"User":      user,
+		"UsersList": usersList,
 	})
 }
 
-func (ct Controller) ManageLinksDeleteLink(c *gin.Context) {
+func (ct Controller) ManageUsersDeleteUser(c *gin.Context) {
 
-	linkId, err := strconv.Atoi(c.Param("link_id"))
+	userID, err := strconv.Atoi(c.Param("user_id"))
 
 	if err != nil {
 		c.JSON(200, gin.H{
@@ -46,7 +47,7 @@ func (ct Controller) ManageLinksDeleteLink(c *gin.Context) {
 
 	model := models.Model{Db: ct.Db}
 
-	model.DeleteUrl(linkId)
+	model.DeleteUser(userID)
 
-	c.Redirect(302, "/manage-links")
+	c.Redirect(302, "/manage-users")
 }

@@ -135,6 +135,8 @@ func (m Model) GetRedirectUrl(token string) (bool, string) {
 
 }
 
+// Gets all links stored in database
+// returns []Url slice
 func (m Model) GetAllLinks() []Url {
 	var urls []Url
 

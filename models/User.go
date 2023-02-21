@@ -31,11 +31,11 @@ func (m Model) CreateUser(username string, password string) bool {
 	newUser := User{Username: username, PasswordHash: string(passwordHashByte), Rank: "reg"}
 	result := db.Create(&newUser)
 
-	if result.Error != nil {
-		return false
+	if result.Error == nil {
+		return true
 	}
 
-	return true
+	return false
 }
 
 // Checks if user exist
@@ -58,4 +58,29 @@ func (m Model) GetUser(username, password string) (bool, User) {
 	}
 
 	return true, user
+}
+
+// Gets list of all users stored in database
+// returns []Users slice
+func (m Model) GetAllUsers() []User {
+	var allUsers []User
+
+	db := m.Db
+
+	result := db.Find(&allUsers)
+
+	if result.Error != nil {
+		panic("User model: error querying db")
+	}
+
+	return allUsers
+}
+
+func (m Model) DeleteUser(idToDelete int) bool {
+
+	db := m.Db
+
+	db.Delete(&User{}, idToDelete)
+
+	return true
 }

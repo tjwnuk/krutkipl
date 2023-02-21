@@ -1,0 +1,39 @@
+{{ define "manage/manageUsers" }}
+{{ template "partial/header" }}
+<body class=''>
+{{ template "partial/navbar" .}}
+
+<h1>Zarządzaj użytkownikami</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Rank</th>
+        <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+{{ range $index, $user := .UsersList }}
+    <tr>
+        <th scope="row">{{ $user.ID }}</th>
+        <td>{{ $user.Username }}</td>
+        <td>{{ $user.Rank }}</td>
+        <td>
+            {{/* <form action="/manage-links/delete/{{ $link.ID }}">
+                <button type="button" class="btn btn-danger" type="submit" >Usuń</button>
+            </form> */}}
+            {{/* <a class="btn btn-danger" href="/manage-users/delete/{{ $user.ID }}">+mod</a> */}}
+            <a class="btn btn-danger" href="/manage-users/delete/{{ $user.ID }}">Usuń</a>
+        </td>
+    </tr>
+{{ end }}
+
+    </tbody>
+</table>
+</body>
+{{ template "partial/footer" }}
+
+{{ end }}
