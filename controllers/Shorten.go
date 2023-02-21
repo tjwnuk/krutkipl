@@ -8,8 +8,16 @@ import (
 )
 
 // Handle request for shortening URL
-
 func (ct Controller) ShortenHandler(c *gin.Context) {
+	// get user
+
+	currentUser, ok := c.Get("User")
+
+	if !ok {
+		currentUser = nil
+	}
+
+	//parse form
 	err := c.Request.ParseForm()
 	originalURL := c.Request.PostFormValue("originalURL")
 
@@ -38,5 +46,6 @@ func (ct Controller) ShortenHandler(c *gin.Context) {
 	// render result page
 	c.HTML(http.StatusOK, "shorten/result", gin.H{
 		"ShortenedUrl": baseUrl + shortenedUrl,
+		"User":         currentUser,
 	})
 }

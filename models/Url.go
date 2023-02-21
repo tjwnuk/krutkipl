@@ -134,3 +134,28 @@ func (m Model) GetRedirectUrl(token string) (bool, string) {
 	return true, resultString
 
 }
+
+func (m Model) GetAllLinks() []Url {
+	var urls []Url
+
+	db := m.Db
+
+	result := db.Find(&urls)
+
+	if result.Error != nil {
+		panic("Url model: error querying db")
+	}
+
+	return urls
+}
+
+// Deletes specified URL from database
+// returns ok bool
+func (m Model) DeleteUrl(idToDelete int) bool {
+
+	db := m.Db
+
+	db.Delete(&Url{}, idToDelete)
+
+	return true
+}

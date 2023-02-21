@@ -44,8 +44,19 @@ func RequireAuth(c *gin.Context) {
 
 		db.First(&user, claims["sub"])
 
+		// refuse request from non admin and non mod users
+		var notAllowed bool = true
+
 		if user.ID == 0 {
-			fmt.Println("nie masz dostępu")
+			notAllowed = true
+		}
+
+		if user.Rank == "mod" || user.Rank == "admin" {
+			notAllowed = false
+		}
+
+		if notAllowed {
+			fmt.Println("Error 401: unauthorized user tried to access protected resource")
 			c.AbortWithStatus(http.StatusUnauthorized)
 			c.Next()
 			return

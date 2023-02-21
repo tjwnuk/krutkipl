@@ -1,0 +1,38 @@
+{{ define "manage/manageLinks" }}
+{{ template "partial/header" }}
+<body class=''>
+{{ template "partial/navbar" .}}
+
+<h1>Zarządzaj linkami</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Link</th>
+        <th scope="col">Token</th>
+        <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+{{ range $index, $link := .Links }}
+    <tr>
+        <th scope="row">{{ $link.ID }}</th>
+        <td>{{ $link.OriginalURL }}</td>
+        <td>{{ $link.Token }}</td>
+        <td>
+            {{/* <form action="/manage-links/delete/{{ $link.ID }}">
+                <button type="button" class="btn btn-danger" type="submit" >Usuń</button>
+            </form> */}}
+            <a class="btn btn-danger" href="/manage-links/delete/{{ $link.ID }}">Usuń</a>
+        </td>
+    </tr>
+{{ end }}
+
+    </tbody>
+</table>
+</body>
+{{ template "partial/footer" }}
+
+{{ end }}

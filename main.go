@@ -24,7 +24,7 @@ func main() {
 	db.AutoMigrate(&models.Url{}, &models.User{})
 
 	// ct - controller object
-	ct = &controllers.Controller{db}
+	ct = &controllers.Controller{Db: db}
 
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/**/*.tmpl.html")
@@ -47,7 +47,8 @@ func main() {
 	router.POST("/register", ct.RegisterControllerPOST)
 
 	// Mod panel
-	router.GET("/mod", middleware.RequireAuth, ct.ModPanelListAllLinks)
+	router.GET("/manage-links", middleware.RequireAuth, ct.ManageLinks)
+	router.GET("/manage-links/delete/:link_id", middleware.RequireAuth, ct.ManageLinksDeleteLink)
 
 	// Redirect all other routes
 	// Check if route matches token in DB, if yes, redirect
