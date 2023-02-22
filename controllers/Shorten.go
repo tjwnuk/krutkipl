@@ -10,8 +10,15 @@ import (
 // Handle request for shortening URL
 func (ct Controller) ShortenHandler(c *gin.Context) {
 	// get user
+	var shortenedUrl string
+
+	var user *models.User
 
 	currentUser, ok := c.Get("User")
+
+	if ok {
+		user = c.Keys["User"].(*models.User)
+	}
 
 	if !ok {
 		currentUser = nil
@@ -31,7 +38,11 @@ func (ct Controller) ShortenHandler(c *gin.Context) {
 
 	model := models.Model{Db: ct.Db}
 
-	shortenedUrl, err := model.CreateNewShortcut(originalURL)
+	if currentUser == nil {
+		shortenedUrl, err = model.CreateNewShortcut(originalURL)
+	} else {
+		shortenedUrl, err = model.CreateNewShortcutByUser(originalURL, int(user.ID))
+	}
 
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{
