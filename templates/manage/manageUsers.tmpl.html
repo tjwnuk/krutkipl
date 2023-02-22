@@ -36,7 +36,9 @@
                 <button type="button" class="btn btn-danger" type="submit" >Usuń</button>
             </form> */}}
             {{/* <a class="btn btn-danger" href="/manage-users/delete/{{ $user.ID }}">+mod</a> */}}
+        {{ if ne $user.Rank "admin" }}
             <a class="btn btn-danger" href="/manage-users/delete/{{ $user.ID }}">Usuń</a>
+        {{ end }}
         </td>
     </tr>
 {{ end }}
