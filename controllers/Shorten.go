@@ -12,15 +12,15 @@ func (ct Controller) ShortenHandler(c *gin.Context) {
 	// get user
 	var shortenedUrl string
 
-	var user *models.User
+	var userStruct *models.User
 
-	currentUser, ok := c.Get("User")
+	currentUser, userPresent := c.Get("User")
 
-	if ok {
-		user = c.Keys["User"].(*models.User)
+	if userPresent {
+		userStruct = c.Keys["User"].(*models.User)
 	}
 
-	if !ok {
+	if !userPresent {
 		currentUser = nil
 	}
 
@@ -38,10 +38,10 @@ func (ct Controller) ShortenHandler(c *gin.Context) {
 
 	model := models.Model{Db: ct.Db}
 
-	if currentUser == nil {
+	if !userPresent {
 		shortenedUrl, err = model.CreateNewShortcut(originalURL)
 	} else {
-		shortenedUrl, err = model.CreateNewShortcutByUser(originalURL, int(user.ID))
+		shortenedUrl, err = model.CreateNewShortcutByUser(originalURL, int(userStruct.ID))
 	}
 
 	if err != nil {
