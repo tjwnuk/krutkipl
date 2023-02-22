@@ -54,6 +54,8 @@ func main() {
 	// Users
 	router.GET("/manage-users", middleware.RequireAdmin, ct.ManageUsers)
 	router.GET("/manage-users/delete/:user_id", middleware.RequireAdmin, ct.ManageUsersDeleteUser)
+	router.GET("/manage-users/grant-mod/:user_id", middleware.RequireAdmin, ct.ManageUsersGrantMod)
+	router.GET("/manage-users/remove-mod/:user_id", middleware.RequireAdmin, ct.ManageUsersRemoveMod)
 
 	// Redirect all other routes
 	// Check if route matches token in DB, if yes, redirect

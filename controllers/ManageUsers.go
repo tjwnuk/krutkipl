@@ -51,3 +51,43 @@ func (ct Controller) ManageUsersDeleteUser(c *gin.Context) {
 
 	c.Redirect(302, "/manage-users")
 }
+
+func (ct Controller) ManageUsersGrantMod(c *gin.Context) {
+
+	userID, err := strconv.Atoi(c.Param("user_id"))
+
+	if err != nil {
+		c.JSON(200, gin.H{
+			"status": "error",
+			"msg":    "error parsing param",
+		})
+
+		return
+	}
+
+	model := models.Model{Db: ct.Db}
+
+	model.GrantMod(userID)
+
+	c.Redirect(302, "/manage-users")
+}
+
+func (ct Controller) ManageUsersRemoveMod(c *gin.Context) {
+
+	userID, err := strconv.Atoi(c.Param("user_id"))
+
+	if err != nil {
+		c.JSON(200, gin.H{
+			"status": "error",
+			"msg":    "error parsing param",
+		})
+
+		return
+	}
+
+	model := models.Model{Db: ct.Db}
+
+	model.RemoveMod(userID)
+
+	c.Redirect(302, "/manage-users")
+}

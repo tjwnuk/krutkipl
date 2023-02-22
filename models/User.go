@@ -84,3 +84,25 @@ func (m Model) DeleteUser(idToDelete int) bool {
 
 	return true
 }
+
+// Grants mod privileges
+// returns ok bool
+func (m Model) GrantMod(userId int) bool {
+
+	db := m.Db
+
+	db.Model(&User{}).Where("id = ?", userId).Update("rank", "mod")
+
+	return true
+}
+
+// Removes mod privileges
+// returns ok bool
+func (m Model) RemoveMod(userId int) bool {
+
+	db := m.Db
+
+	db.Model(&User{}).Where("id = ?", userId).Update("rank", "reg")
+
+	return true
+}
