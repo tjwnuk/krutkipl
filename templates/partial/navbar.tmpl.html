@@ -21,7 +21,14 @@
             {{ if or (eq .User.Rank "admin") (eq .User.Rank "mod") }}
             
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="/manage-links">Zarządzaj</a>
+                    <a class="nav-link " aria-current="page" href="/manage-links">Linki</a>
+                </li>
+
+            {{ end }}
+            {{ if eq .User.Rank "admin" }}
+            
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="/manage-users">Użytkownicy</a>
                 </li>
 
             {{ end }}

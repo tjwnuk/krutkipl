@@ -10,7 +10,7 @@ import (
 
 func (ct Controller) ManageLinks(c *gin.Context) {
 
-	user, exist := c.Get("user")
+	user, exist := c.Get("User")
 
 	if !exist {
 		c.JSON(http.StatusInternalServerError, gin.H{
