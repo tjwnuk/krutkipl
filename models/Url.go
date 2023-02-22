@@ -13,6 +13,7 @@ type Url struct {
 	ID          int
 	OriginalURL string
 	Token       string
+	UserID      int
 }
 
 // Checks if token exists in the database
@@ -89,6 +90,45 @@ func (m Model) CreateNewShortcut(OriginalURL string) (string, error) {
 	}
 
 	url := Url{OriginalURL: OriginalURL, Token: token}
+
+	if r := db.Create(&url); r.Error != nil {
+		return "", errors.New("error creating new entry")
+	}
+
+	return token, nil
+}
+
+// Creates new shortcut by logged user
+// returns (token string, error)
+func (m Model) CreateNewShortcutByUser(OriginalURL string, userID int) (string, error) {
+
+	db := m.Db
+
+	// check if url is already present
+
+	urlAlreadyExist, existingToken := m.UrlAlreadyExist(OriginalURL)
+
+	if urlAlreadyExist {
+		return existingToken, nil
+	}
+
+	// shortened url will have string like 19KK
+	// tokenLength determines how many chars it will have
+	var tokenLength int = 4
+	token := helpers.GenerateToken(tokenLength)
+
+	counter := 0
+	for m.TokenAlreadyExist(token) {
+		token = helpers.GenerateToken(tokenLength)
+
+		counter++
+
+		if counter > 30 {
+			return "", errors.New("database is full")
+		}
+	}
+
+	url := Url{OriginalURL: OriginalURL, Token: token, UserID: userID}
 
 	if r := db.Create(&url); r.Error != nil {
 		return "", errors.New("error creating new entry")
