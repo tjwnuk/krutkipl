@@ -201,3 +201,20 @@ func (m Model) DeleteUrl(idToDelete int) bool {
 
 	return true
 }
+
+// Returns all links added by user
+// returns []Url slice, ok bool
+func (m Model) GetAllUserLinks(userId int) ([]Url, bool) {
+
+	db := m.Db
+
+	var urls []Url
+
+	result := db.Where("user_id = ?", userId).Find(&urls)
+
+	if result.Error != nil {
+		return urls, false
+	}
+
+	return urls, true
+}

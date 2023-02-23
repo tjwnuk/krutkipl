@@ -46,12 +46,16 @@ func main() {
 	router.GET("/register", ct.RegisterControllerHandler)
 	router.POST("/register", ct.RegisterControllerPOST)
 
+	// Account management
+	router.GET("/account-panel", middleware.AlreadyLogged, ct.AccountPanel)
+	router.GET("/account-panel/delete-link/:link_id", middleware.AlreadyLogged, ct.AccountPanelDeleteLink)
+
 	// Mod panel
 	// Links (aka Urls)
 	router.GET("/manage-links", middleware.RequireAuth, ct.ManageLinks)
 	router.GET("/manage-links/delete/:link_id", middleware.RequireAuth, ct.ManageLinksDeleteLink)
 
-	// Users
+	// Manage Users
 	router.GET("/manage-users", middleware.RequireAdmin, ct.ManageUsers)
 	router.GET("/manage-users/delete/:user_id", middleware.RequireAdmin, ct.ManageUsersDeleteUser)
 	router.GET("/manage-users/grant-mod/:user_id", middleware.RequireAdmin, ct.ManageUsersGrantMod)

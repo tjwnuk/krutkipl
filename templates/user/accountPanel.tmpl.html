@@ -1,0 +1,41 @@
+{{ define "user/accountPanel" }}
+{{ template "partial/header" }}
+<body class=''>
+{{ template "partial/navbar" .}}
+
+<h1>Your links</h1>
+
+{{ if not .Links }}
+    <h5>You didnt add any links yet</h5>
+
+{{ else if .Links }}
+
+    <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Link</th>
+            <th scope="col">Token</th>
+            <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+    {{ range $index, $link := .Links }}
+        <tr>
+            <th scope="row">{{ $link.ID }}</th>
+            <td>{{ $link.OriginalURL }}</td>
+            <td>{{ $link.Token }}</td>
+            <td>
+                <a class="btn btn-danger" href="/account-panel/delete-link/{{ $link.ID }}">Delete</a>
+            </td>
+        </tr>
+    {{ end }}
+
+{{ end }}
+    </tbody>
+</table>
+</body>
+{{ template "partial/footer" }}
+
+{{ end }}
