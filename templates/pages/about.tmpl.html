@@ -1,0 +1,30 @@
+{{ define "pages/about" }}
+
+{{ template "partial/header" .title}}
+
+{{ template "partial/navbar" .}}
+
+<h1>About the site</h1>
+<p>krutki.pl is a simple URL shortener. It is written with Go, Gin-Gonic, GORM and Sqlite.</p>
+<br>
+<p>Author: <a href="https://github.com/tjwnuk">https://github.com/tjwnuk</a></p>
+Contact: tjwnuk@proton.me</p>
+<p>Linked IN: <a href="https://www.linkedin.com/in/tjwnuk/">https://www.linkedin.com/in/tjwnuk/</a></p>
+<br>
+<p>Features:</p>
+<ul>
+<li>shortening long URLs to shorter form
+<li>user registration and authentication</li>
+<li>shorter links for registered users (token has 4 chars instead of 8)</li>
+<li>deleting your own links</li>
+<li>managing links as a moderator or administrator</li>
+<li>managing users, giving or removing mod privileges or deleting users</li>
+</ul>
+{{ template "partial/footer" }}
+
+<h3>Debug data:</h3>
+<p>Current logged in user: </p>
+
+<p>{{.UserString}}</p>
+
+{{ end }}
