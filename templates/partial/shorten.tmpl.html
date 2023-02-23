@@ -5,13 +5,21 @@
         <h5 class="card-header">Shorten the URL</h5>
     </div>
 
-    <div class="card-body">
+    <div class="card-body text-dark bg-light">
         <form class="form-inline justify-content-center" action="/shorten" method="post">
             <input class = "w-75 mr-2" type="text" name="originalURL" placeholder="Enter the URL here"></input>
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
     </div>
 
+</div>
+
+<div class="card mb-3" style="margin: 0 auto; float: none; margin-bottom: 10px; margin-top: 5rem; width: 50rem;">
+  <div class="card-header">
+    <h5 class="card-header">Info</h5>
+  </div>
+  {{/* <div class="card-body text-dark bg-light">Panel Content</div> */}}
+  <div class="card-text text-dark bg-light" style="padding: 1rem">Register to get shorter links and manage them</div>
 </div>
 
 {{ end }}
