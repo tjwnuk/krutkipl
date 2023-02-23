@@ -3,7 +3,7 @@
 <body class=''>
 {{ template "partial/navbar" .}}
 
-<h1>Zarządzaj linkami</h1>
+<h1>Manage links</h1>
 
 <table class="table">
     <thead>
@@ -25,7 +25,7 @@
             {{/* <form action="/manage-links/delete/{{ $link.ID }}">
                 <button type="button" class="btn btn-danger" type="submit" >Usuń</button>
             </form> */}}
-            <a class="btn btn-danger" href="/manage-links/delete/{{ $link.ID }}">Usuń</a>
+            <a class="btn btn-danger" href="/manage-links/delete/{{ $link.ID }}">Delete</a>
         </td>
     </tr>
 {{ end }}
