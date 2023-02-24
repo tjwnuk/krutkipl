@@ -18,7 +18,7 @@ type LoginData struct {
 
 func (ct Controller) LoginHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "login.tmpl.html", gin.H{
-		"title": "Zaloguj się",
+		"title": "Log in",
 	})
 }
 
