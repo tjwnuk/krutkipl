@@ -16,11 +16,17 @@ tjwnuk@proton.me
 
 ## Screenshots
 
+### Index
 ![Index](screenshots/1_index.png "Main page")
+### Register page
 ![Register page](screenshots/2_register.png "Registration")
+### Log in to your account
 ![Log in to your account](screenshots/3_Log-in.png "Log in page")
+### Click on username to manage your links
 ![Click on username to manage your links](screenshots/3_5_after_login.png "After login")
+### Manage links
 ![Manage links](screenshots/5_managelinks.png "Manage links")
+### Manage users
 ![Manage users](screenshots/6_manage-users.png "Manage users")
 
 ## Accounts and database
